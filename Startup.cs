@@ -34,7 +34,6 @@ namespace CreateIssueJira
         {
             services.AddSingleton<IConfigurationRoot>(Configuration);
             services.AddMvc();
-
             services.AddTransient<JiraIssueService>();
         }
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
