@@ -7,6 +7,7 @@ using CreateIssueJira.Model;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using CreateIssueJira.ViewModels;
 
 namespace CreateIssueJira.Services
 {
@@ -19,7 +20,7 @@ namespace CreateIssueJira.Services
             _Configuration = Configuration;
         }
 
-        public async Task<string> CreateIssueJira(JSON_issue issue)
+        public async Task<IssueCreateResponse> CreateIssueJira(JSON_issue issue)
         {
             var client = new HttpClient();
             var Credentials = Encoding.ASCII.GetBytes(_Configuration["Credentials:Jira"]);
@@ -28,9 +29,9 @@ namespace CreateIssueJira.Services
             var stringcontent = new StringContent(jsonInString, Encoding.UTF8, "application/json");
             var response = await client.PostAsync(_Configuration["Url:Base"] + "/jira/rest/api/2/issue", stringcontent);
             var response_string_json = response.Content.ReadAsStringAsync().Result;
-            //var respone_json = JsonConvert.DeserializeObject<dynamic>(response_string_json);           
+            var respone_json = JsonConvert.DeserializeObject<IssueCreateResponse>(response_string_json);           
 
-            return response_string_json;
+            return respone_json;
         }
 
     }

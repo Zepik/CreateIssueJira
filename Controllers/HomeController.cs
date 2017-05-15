@@ -30,9 +30,9 @@ namespace CreateIssueJira.Controllers
         public async Task<IActionResult> Index(string Summary, string Description, string Reporter)
         {
             JSON_issue issueToCreate = new JSON_issue(_Configuration["Issue:projectId"], Summary, Description, _Configuration["Issue:issueType"], Reporter);
-            string respone = await _issueService.CreateIssueJira(issueToCreate);
+            var respone = await _issueService.CreateIssueJira(issueToCreate);
             
-            return View();
+            return View("IssueCreated", respone);
         }
     }
 }

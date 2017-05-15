@@ -1,0 +1,12 @@
+@model CreateIssueJira.ViewModels.IssueCreateResponse
+
+@if (Model.id != null)
+{
+    <h4>Zgłoszenie zostało pomyślnie utworzone!</h4>  
+    <a href="http://patek-ms-7758:2990/jira/browse/@Model.key">Zgłoszenie: @Model.key</a>
+
+}
+else
+{
+    <h4>Wystąpił problem podczas tworzenia zgłoszenia, proszę skontaktować się z administratorem.</h4>    
+}
