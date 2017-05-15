@@ -1,0 +1,13 @@
+{
+    "Url":{
+        "Base": "http://patek-ms-7758:2990"
+    },
+    "Credentials":{
+        "Jira": "admin:admin"
+    },
+    "Issue": {
+        "issueType" : "Task",
+        "projectId" : "10000"
+    }
+
+}
