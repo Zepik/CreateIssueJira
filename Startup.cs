@@ -44,7 +44,12 @@ namespace CreateIssueJira
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
 
+            app.UseStatusCodePagesWithReExecute("/StatusCode/{0}");
             app.UseFileServer();
             app.UseMvcWithDefaultRoute();
         }
