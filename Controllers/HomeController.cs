@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 using CreateIssueJira.Model;
 using CreateIssueJira.Services;
@@ -49,6 +52,27 @@ namespace CreateIssueJira.Controllers
             ViewData["statusCode"] = HttpContext.Response.StatusCode;
 
             return View();
+        }
+
+        public IActionResult VerifyUser(string Reporter)
+        {
+            using(var client = new HttpClient())
+			{
+                var Credentials = Encoding.ASCII.GetBytes(_Configuration["Credentials:Jira"]);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Credentials));
+                string url = _Configuration["Url:Base"] + $"/jira/rest/api/2/user?username={Reporter}";
+				var response =  client.GetAsync(url);
+                var UserExist = response.Result.IsSuccessStatusCode;
+                if (UserExist)
+                {
+                    return Json(data: true);
+                }
+                else
+                {
+                    return Json(data: $"Użytkownik \"{Reporter}\" nie istnieje.");
+                }
+            }
+
         }
     }
 }

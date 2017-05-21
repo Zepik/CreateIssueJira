@@ -81,9 +81,10 @@ namespace CreateIssueJira.Services
             return filesnames;
 		}
 
-		public async Task<List<HttpResponseMessage>> SendAttachmentsToIssueJira(List<string> filesNames, string issueKey)
+		public async Task<HttpResponseMessage> SendAttachmentsToIssueJira(List<string> filesNames, string issueKey)
 		{   
-			List<HttpResponseMessage> response = new List<HttpResponseMessage>();
+			HttpResponseMessage response = new HttpResponseMessage();
+			string fileWithProblems;
 			using(var client = new HttpClient())
 			{
 				var Credentials = Encoding.ASCII.GetBytes(_Configuration["Credentials:Jira"]);
@@ -94,12 +95,18 @@ namespace CreateIssueJira.Services
 					MultipartFormDataContent content = new MultipartFormDataContent();
 					HttpContent fileContent = new ByteArrayContent(File.ReadAllBytes(_env.WebRootPath + $@"/zalaczniki/{file}"));
 					content.Add(fileContent, "file", file);
-					string url = $"http://patek-ms-7758:2990/jira/rest/api/2/issue/{issueKey}/attachments";
-					response.Add(await client.PostAsync(url, content));
+					string url = _Configuration["Url:Base"] + $"/jira/rest/api/2/issue/{issueKey}/attachments";
+					response = await client.PostAsync(url, content);
+					var response_string_json = response.Content.ReadAsStringAsync().Result;
+					if (!response.IsSuccessStatusCode)
+					{
+						fileWithProblems = file;
+						_logger.LogError($"Error occurred during proccessing file: {file} to issue: {issueKey} \"{response_string_json}\"");
+					}
 				}
 				
 			}
 			return response; 
 		}
-}
+	}
 }

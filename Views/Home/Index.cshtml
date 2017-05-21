@@ -27,17 +27,17 @@
             <div class="form-group">
                 <label asp-for="Summary">Summary</label>
                 <input  asp-for="Summary" class="form-control"/>
-                <span asp-validation-for="Summary"></span>
+                <span asp-validation-for="Summary" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Description"> </label>
                 <textarea rows="7" asp-for="Description" class="form-control"> </textarea>
-                <span asp-validation-for="Description"></span>
+                <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Reporter">Reporter</label>
                 <input asp-for="Reporter" class="form-control"/>
-                <span asp-validation-for="Reporter"></span>
+                <span asp-validation-for="Reporter" class="text-danger" ></span>
             </div>
             <div>
                 <input type="file" id="files" name="files" multiple/>
