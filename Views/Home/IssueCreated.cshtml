@@ -2,11 +2,26 @@
 
 @if (Model.id != null)
 {
-    <h4>Zgłoszenie zostało pomyślnie utworzone!</h4>  
-    <a href="http://patek-ms-7758:2990/jira/browse/@Model.key">Zgłoszenie: @Model.key</a>
-
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-sm-8 col-sm-offset-2">
+                <br><br> <h2 style="color:#0fad00">Pomyślnie utworzono zgłoszenie</h2>
+                <p style="font-size:20px;color:#5C5C5C;">Dziękujemy za utworzenie zgłoszenia <a href="http://patek-ms-7758:2990/jira/browse/@Model.key">@Model.key</a>. </p>
+                <a href="http://patek-ms-7758:2990/jira/browse/@Model.key" class="btn btn-success">Przejdź do zgłoszenia</a>
+                <br><br>
+            </div>       
+        </div>
+    </div>
 }
 else
 {
-    <h4>Wystąpił problem podczas tworzenia zgłoszenia, proszę skontaktować się z administratorem.</h4>    
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-sm-8 col-sm-offset-2">
+                <br><br> <h2 class="text-danger" >Wystąpił problem podczas tworzenia zgłoszenia</h2>
+                <p style="font-size:20px;color:#5C5C5C;">Wróć do poprzedniej strony i spróbuj ponownie. Jeśli sytuacja będzie się powtarzać, skontaktuj się z administratorem.</p>
+                <br><br>
+            </div>        
+        </div>
+    </div>  
 }
