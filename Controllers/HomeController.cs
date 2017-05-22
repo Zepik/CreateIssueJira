@@ -20,10 +20,12 @@ namespace CreateIssueJira.Controllers
 
         private JiraIssueService _issueService;
         private IConfigurationRoot _Configuration;
-        public HomeController(JiraIssueService issueService, IConfigurationRoot Configuration)
+        private readonly ILogger _logger;
+        public HomeController(JiraIssueService issueService, IConfigurationRoot Configuration,  ILogger<JiraIssueService> logger)
          {
              _issueService = issueService;
              _Configuration = Configuration;
+             _logger = logger;
          }
 
         [HttpGet]
@@ -62,15 +64,24 @@ namespace CreateIssueJira.Controllers
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Credentials));
                 string url = _Configuration["Url:Base"] + $"/jira/rest/api/2/user?username={Reporter}";
 				var response =  client.GetAsync(url);
-                var UserExist = response.Result.IsSuccessStatusCode;
-                if (UserExist)
+                try
                 {
-                    return Json(data: true);
+                    var UserExist = response.Result.IsSuccessStatusCode;
+                    if (UserExist)
+                    {
+                        return Json(data: true);
+                    }
+                    else
+                    {
+                        return Json(data: $"Użytkownik <b>{Reporter}</b> nie istnieje");
+                    }
                 }
-                else
+                catch(Exception ex)
                 {
-                    return Json(data: $"Użytkownik <b>{Reporter}</b> nie istnieje");
+                    _logger.LogError(ex.Message);
+                    return Json(data: $"<b>Wystąpił problem z połączeniem do jira</b>");
                 }
+
             }
 
         }
