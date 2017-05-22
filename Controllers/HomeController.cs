@@ -69,7 +69,7 @@ namespace CreateIssueJira.Controllers
                 }
                 else
                 {
-                    return Json(data: $"Użytkownik \"{Reporter}\" nie istnieje.");
+                    return Json(data: $"Użytkownik <b>{Reporter}</b> nie istnieje");
                 }
             }
 

@@ -6,6 +6,7 @@
 <script type="text/javascript" src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
 <script type="text/javascript" src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
 <script type="text/javascript" src="~/lib/jquery/dist/jquery.js"></script>
+<script type="text/javascript" src="~/javascript.js"></script>
 
 
 <div class="row">
@@ -13,34 +14,25 @@
         <h3 >Tworzenie zgłoszenia w jira</h3>
         <form method="POST" enctype="multipart/form-data">
             <div asp-vlidation-summary="ValidationSummary.ModelOnly"></div>
-@*            <div class="form-group">
-                <label asp-for="ProjectKey">Project Key</label>
-                <input asp-for="ProjectKey" class="form-control"/>
-                <span asp-validation-for="ProjectKey"></span>
-            </div>
+
             <div class="form-group">
-                <label asp-for="IssuetypeName">Issue Type</label>
-                <input  asp-for="IssuetypeName" class="form-control"/>
-                <span asp-validation-for="IssuetypeName"></span>
-            </div>
-*@
-            <div class="form-group">
-                <label asp-for="Summary">Summary</label>
+                <label asp-for="Summary">Podsumowanie</label>
                 <input  asp-for="Summary" class="form-control"/>
                 <span asp-validation-for="Summary" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Description"> </label>
+                <label asp-for="Description">Opis</label>
                 <textarea rows="7" asp-for="Description" class="form-control"> </textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Reporter">Reporter</label>
+                <label asp-for="Reporter">Zgłaszający</label>
                 <input asp-for="Reporter" class="form-control"/>
                 <span asp-validation-for="Reporter" class="text-danger" ></span>
             </div>
             <div>
                 <input type="file" id="files" name="files" multiple/>
+                <span class="text-danger" id="Message"></span>
             </div>
             <div>
                 <input id="submit" type="submit" value="Utwórz zgłoszenie" class="btn btn-success center-block"/>
