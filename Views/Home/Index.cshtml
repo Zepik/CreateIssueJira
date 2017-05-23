@@ -5,29 +5,28 @@
 <script type="text/javascript" src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
 <script type="text/javascript" src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
 <script type="text/javascript" src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
-<script type="text/javascript" src="~/lib/jquery/dist/jquery.js"></script>
 <script type="text/javascript" src="~/javascript.js"></script>
 
 
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
         <h3 >Tworzenie zgłoszenia w jira</h3>
-        <form method="POST" enctype="multipart/form-data">
+        <form id="#myform" method="POST" enctype="multipart/form-data">
             <div asp-vlidation-summary="ValidationSummary.ModelOnly"></div>
 
             <div class="form-group">
                 <label asp-for="Summary">Podsumowanie</label>
-                <input  asp-for="Summary" class="form-control"/>
+                <input placeholder="Tu wpisz temat zgłoszenia" asp-for="Summary" class="form-control"/>
                 <span asp-validation-for="Summary" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Description">Opis</label>
-                <textarea rows="7" asp-for="Description" class="form-control"> </textarea>
+                <textarea placeholder="Tu wpisz treść zgłoszenia" rows="7" asp-for="Description" class="form-control"> </textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Reporter">Zgłaszający</label>
-                <input asp-for="Reporter" class="form-control"/>
+                <input ValidationGroup="Group1" placeholder="Tu wpisz swój numer UI/RX np. ui123456" asp-for="Reporter" id="Reporter" class="form-control"/>
                 <span asp-validation-for="Reporter" class="text-danger" ></span>
             </div>
             <div>
@@ -41,3 +40,9 @@
     </div>
 
 </div>
+<script>
+
+$( "#Reporter" ).keypress(function() {    
+    $("#Reporter").valid();
+});
+</script>
